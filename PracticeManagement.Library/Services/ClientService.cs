@@ -17,23 +17,23 @@ namespace PracticeManagement.Library.Services
     {
         private static ClientService? instance;
 
-        public List<Client> Clients
+        public List<ClientDTO> Clients
         {
             get
             {
                 var response = new WebRequestHandler()
                     .Get("/Client").Result;
                 var clients = JsonConvert
-                    .DeserializeObject<List<Client>>(response);
-                return clients ?? new List<Client>();
+                    .DeserializeObject<List<ClientDTO>>(response);
+                return clients ?? new List<ClientDTO>();
                 //return clients;
             }
         }
 
-        private List<Client> clients;
+        private List<ClientDTO> clients;
 
 
-        public IEnumerable<Client> Search(string query)
+        public IEnumerable<ClientDTO> Search(string query)
         {
             return Clients
                 .Where(c => c.Name.ToUpper()
@@ -64,13 +64,13 @@ namespace PracticeManagement.Library.Services
             var response = new WebRequestHandler()
                      .Get("/Client").Result;
              clients = JsonConvert
-                    .DeserializeObject<List<Client>>(response) ?? new List<Client>();
+                    .DeserializeObject<List<ClientDTO>>(response) ?? new List<ClientDTO>();
 
         }
 
 
 
-        public Client? Get(int id)
+        public ClientDTO? Get(int id)
         {
             /*var response = new WebRequestHandler()
                     .Get("/Client/GetClients/{id}").Result;
@@ -81,7 +81,8 @@ namespace PracticeManagement.Library.Services
 
         public void Delete(int id)
         {
-            var response = new WebRequestHandler().Delete($"/Client/Delete/{id}").Result;
+            var response = new WebRequestHandler()
+                .Delete($"/Client/Delete/{id}").Result;
 
             if (response == "SUCCESS")
             {
@@ -115,10 +116,10 @@ namespace PracticeManagement.Library.Services
 
                 }*/
 
-        public void AddOrUpdate(Client c)
+        public void AddOrUpdate(ClientDTO c)
         {
             var response = new WebRequestHandler().Post("/Client", c).Result;
-            var myUpdatedClient = JsonConvert.DeserializeObject<Client>(response);
+            var myUpdatedClient = JsonConvert.DeserializeObject<ClientDTO>(response);
             if (myUpdatedClient != null)
             {
                 var existingClient = clients.FirstOrDefault(c => c.Id == myUpdatedClient.Id);

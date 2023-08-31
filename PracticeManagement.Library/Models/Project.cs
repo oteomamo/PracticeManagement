@@ -18,8 +18,8 @@ namespace PracticeManagement.Library.Models
         public string? LongName { get; set; }
         public int ClientId { get; set; }
 
-
-        public Client? Client { get; set; }
+        public List<Bill>? Bills { get; set; }
+        //public Client? Client { get; set; }
 
 
 
@@ -37,6 +37,7 @@ namespace PracticeManagement.Library.Models
             LongName = string.Empty;
             ShortName = string.Empty;
             IsActive = false;
+            Bills = new List<Bill>();
         }
 
 
@@ -49,6 +50,7 @@ namespace PracticeManagement.Library.Models
             this.LongName = dto.LongName;
             this.ShortName = dto.ShortName;
             this.ClientId = dto.ClientId;
+            this.Bills = dto.Bills;
         }
     }
 }

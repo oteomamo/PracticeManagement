@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PracticeManagement.Library.DTO;
 using PracticeManagement.Library.Models;
 using PracticeManagement.Library.Utilities;
 using System;
@@ -13,21 +14,21 @@ namespace PracticeManagement.Library.Services
     {
         private static ProjectService? instance;
 
-        private List<Project> projects;
+        private List<ProjectDTO> projects;
 
-        public List<Project> Projects
+        public List<ProjectDTO> Projects
         {
             get
             {
                 var response = new WebRequestHandler()
                     .Get("/Project").Result;
                 var projects = JsonConvert.
-                    DeserializeObject<List<Project>>(response);
-                return projects ?? new List<Project>();
+                    DeserializeObject<List<ProjectDTO>>(response);
+                return projects ?? new List<ProjectDTO>();
             }
         }
 
-        public IEnumerable<Project> Search(string query)
+        public IEnumerable<ProjectDTO> Search(string query)
         {
             return Projects
                 .Where(c => c.LongName.ToUpper()
@@ -51,17 +52,17 @@ namespace PracticeManagement.Library.Services
             var response = new WebRequestHandler()
                 .Get("/Project").Result;
             projects = JsonConvert
-                .DeserializeObject<List<Project>>(response)??
-                new List<Project>();
+                .DeserializeObject<List<ProjectDTO>>(response)??
+                new List<ProjectDTO>();
         }
 
 
-        public Project? Get(int id)
+        public ProjectDTO? Get(int id)
         {
             return Projects.FirstOrDefault(p => p.Id == id);
         }
 
-        public Project? GetUpdate(int id)
+        public ProjectDTO? GetUpdate(int id)
         {
             return Projects.FirstOrDefault(p => p.ClientId == id);
         }
@@ -84,11 +85,11 @@ namespace PracticeManagement.Library.Services
         }
 
 
-        public void AddOrUpdate(Project p)
+        public void AddOrUpdate(ProjectDTO p)
         {
             var response = new WebRequestHandler()
                 .Post("/Project", p).Result;
-            var myUpdatedProject = JsonConvert.DeserializeObject<Project>(response);
+            var myUpdatedProject = JsonConvert.DeserializeObject<ProjectDTO>(response);
             if (myUpdatedProject != null)
             {
                 var existingProject = projects.FirstOrDefault(c => c.Id == myUpdatedProject.Id);
@@ -102,14 +103,6 @@ namespace PracticeManagement.Library.Services
                     projects.RemoveAt(index);
                     projects.Insert(index, myUpdatedProject);
                 }   
-            }
-        }
-
-        private int LastId
-        {
-            get
-            {
-                return Projects.Any() ? Projects.Select(p => p.Id).Max() : 0;
             }
         }
 

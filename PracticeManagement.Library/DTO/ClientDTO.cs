@@ -15,8 +15,8 @@ namespace PracticeManagement.Library.DTO
         public DateTime OpenDate { get; set; }
         public DateTime ClosedDate { get; set; }
         public bool IsActive { get; set; }
-        public string Name { get; set; }
-        public string Notes { get; set; }
+        public string? Name { get; set; }
+        public string? Notes { get; set; }
         public List<Project>? Projects { get; set; }
 
         public List<Bill>? Bills { get; set; }

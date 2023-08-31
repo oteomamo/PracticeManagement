@@ -15,8 +15,8 @@ namespace PracticeManagement.MAUI.ViewModels
 {
     public class ProjectViewViewModel : INotifyPropertyChanged
     {
-        public Client Client { get; set; }
-        public Project SelectedProject { get; set; }
+        public ClientDTO Client { get; set; }
+        public ProjectDTO SelectedProject { get; set; }
 
         public ICommand SearchCommand { get; private set; }
 
@@ -53,7 +53,7 @@ namespace PracticeManagement.MAUI.ViewModels
             }
             else
             {
-                Client = new Client();
+                Client = new ClientDTO();
             }
 
         }

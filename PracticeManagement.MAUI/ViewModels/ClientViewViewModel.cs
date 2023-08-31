@@ -16,7 +16,7 @@ namespace PracticeManagement.MAUI.ViewModels
 {
     public class ClientViewViewModel : INotifyPropertyChanged
     {
-        public Client SelectedClient { get; set; }
+        public ClientDTO SelectedClient { get; set; }
 
         public ICommand SearchCommand { get; private set; }
 

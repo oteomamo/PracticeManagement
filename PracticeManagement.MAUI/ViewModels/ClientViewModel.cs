@@ -15,7 +15,7 @@ namespace PracticeManagement.MAUI.ViewModels
 {
     public class ClientViewModel : INotifyPropertyChanged
     {
-        public Client Model { get; set; }
+        public ClientDTO Model { get; set; }
 
         public ObservableCollection<ProjectViewModel> Projects
         {
@@ -138,7 +138,7 @@ namespace PracticeManagement.MAUI.ViewModels
 
         }
 
-        public ClientViewModel(Client client)
+        public ClientViewModel(ClientDTO client)
         {
             Model = client;
             SetupCommands();
@@ -152,14 +152,14 @@ namespace PracticeManagement.MAUI.ViewModels
             }
             else
             {
-                Model = new Client();
+                Model = new ClientDTO();
             }
             SetupCommands();
         }
 
         public ClientViewModel()
         {
-            Model = new Client();
+            Model = new ClientDTO();
             SetupCommands();
         }
 

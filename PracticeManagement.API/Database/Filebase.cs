@@ -146,7 +146,6 @@ namespace PracticeManagement.API.Database
 
         public Project AddOrUpdate(Project p)
         {
-            //set up a new Id if one doesn't already exist
             if (p.Id <= 0)
             {
                 p.Id = LastProjectId + 1;
@@ -156,27 +155,19 @@ namespace PracticeManagement.API.Database
 
             try
             {
-                //if the item has been previously persisted
                 if (File.Exists(path))
                 {
-                    //blow it up
                     File.Delete(path);
                 }
-
-                // Ensure the directory exists
                 var directoryPath = Path.GetDirectoryName(path);
                 Directory.CreateDirectory(directoryPath);
 
-                //write the file
                 File.WriteAllText(path, JsonConvert.SerializeObject(p));
             }
             catch (Exception e)
             {
-                // Log or handle the error as needed
                 Debug.WriteLine($"Error updating project: {e.Message}");
             }
-
-            //return the item, which now has an id
             return p;
         }
 

@@ -1,3 +1,4 @@
+using PracticeManagement.Library.DTO;
 using PracticeManagement.Library.Models;
 using PracticeManagement.Library.Services;
 using System.Collections.ObjectModel;
@@ -27,7 +28,7 @@ namespace PracticeManagement.MAUI.ViewModels
             }
         }
         public string EmployeeDisplay => Employee?.Name ?? string.Empty;
-        private Project project;
+        private ProjectDTO project;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -51,7 +52,7 @@ namespace PracticeManagement.MAUI.ViewModels
             }
         }
 
-        public Project Project
+        public ProjectDTO Project
         {
             get
             {
@@ -71,8 +72,8 @@ namespace PracticeManagement.MAUI.ViewModels
 
         public ObservableCollection<Employee> Employees
             => new ObservableCollection<Employee>(EmployeeService.Current.Employees);
-        public ObservableCollection<Project> Projects
-            => new ObservableCollection<Project>(ProjectService.Current.Projects);
+        public ObservableCollection<ProjectDTO> Projects
+            => new ObservableCollection<ProjectDTO>(ProjectService.Current.Projects);
         public TimeViewModel()
         {
             Model = new Time();

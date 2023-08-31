@@ -1,3 +1,4 @@
+using PracticeManagement.Library.DTO;
 using PracticeManagement.Library.Models;
 using PracticeManagement.Library.Services;
 using PracticeManagement.MAUI.Views;
@@ -15,7 +16,7 @@ namespace PracticeManagement.MAUI.ViewModels
 {
     public class ProjectViewModel : INotifyPropertyChanged
     {
-        public Project Model { get; set; }
+        public ProjectDTO Model { get; set; }
 
         public ObservableCollection<ProjectViewModel> Projects
         {
@@ -110,14 +111,14 @@ namespace PracticeManagement.MAUI.ViewModels
 
         public ProjectViewModel()
         {
-            Model = new Project();
+            Model = new ProjectDTO();
             SetupCommands();
         }
         public ProjectViewModel(int clientId, int projectId)
         {
             if (projectId == 0)
             {
-                Model = new Project { ClientId = clientId };
+                Model = new ProjectDTO { ClientId = clientId };
             }
             else
             {
@@ -126,7 +127,7 @@ namespace PracticeManagement.MAUI.ViewModels
             SetupCommands();
         }
 
-        public ProjectViewModel(Project model)
+        public ProjectViewModel(ProjectDTO model)
         {
             Model = model;
             SetupCommands();

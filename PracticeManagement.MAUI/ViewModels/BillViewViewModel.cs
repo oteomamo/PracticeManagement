@@ -13,7 +13,7 @@ namespace PracticeManagement.MAUI.ViewModels {
 
         public Project Project { get; set; }
 
-        public Client Client { get; set; }
+        public ClientDTO Client { get; set; }
 
         public Bill SelectedBill { get; set; }
         public ICommand SearchCommand { get; private set; }
@@ -50,7 +50,7 @@ namespace PracticeManagement.MAUI.ViewModels {
             }
             else
             {
-                Client = new Client();
+                Client = new ClientDTO();
             }
 
         }
