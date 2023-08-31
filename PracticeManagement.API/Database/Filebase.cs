@@ -36,6 +36,7 @@ namespace PracticeManagement.API.Database
             //TODO: add support for employees, times, bills
         }
         private int LastClientId => Clients.Any() ? Clients.Select(c => c.Id).Max() : 0;
+        private int LastProjectId => Projects.Any() ? Projects.Select(c => c.Id).Max() : 0;
 
 
         public Client AddOrUpdate(Client c)
@@ -104,6 +105,84 @@ namespace PracticeManagement.API.Database
         public bool Delete(string id)
         {
             var path = $"{_clientRoot}\\{id}.json";
+
+            //if the item has been previously persisted
+            if (File.Exists(path))
+            {
+                //blow it up
+                File.Delete(path);
+            }
+            return true;
+        }
+
+
+        /*    ++++++++++++++    Project Section     +++++++++++++    */
+
+        public List<Project> Projects
+        {
+            get
+            {
+                var _projects = new List<Project>();
+                if (Directory.Exists(_projectRoot))
+                {
+                    var root = new DirectoryInfo(_projectRoot);
+                    foreach (var todoFile in root.GetFiles())
+                    {
+                        var todo = JsonConvert.DeserializeObject<Project>(File.ReadAllText(todoFile.FullName));
+                        if (todo != null)
+                        {
+                            _projects.Add(todo);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine($"Directory {_projectRoot} does not exist.");
+                }
+
+                return _projects;
+            }
+        }
+
+        public Project AddOrUpdate(Project p)
+        {
+            //set up a new Id if one doesn't already exist
+            if (p.Id <= 0)
+            {
+                p.Id = LastProjectId + 1;
+            }
+
+            var path = $"{_projectRoot}\\{p.Id}.json";
+
+            try
+            {
+                //if the item has been previously persisted
+                if (File.Exists(path))
+                {
+                    //blow it up
+                    File.Delete(path);
+                }
+
+                // Ensure the directory exists
+                var directoryPath = Path.GetDirectoryName(path);
+                Directory.CreateDirectory(directoryPath);
+
+                //write the file
+                File.WriteAllText(path, JsonConvert.SerializeObject(p));
+            }
+            catch (Exception e)
+            {
+                // Log or handle the error as needed
+                Debug.WriteLine($"Error updating project: {e.Message}");
+            }
+
+            //return the item, which now has an id
+            return p;
+        }
+
+        public bool DeleteProject(string id)
+        {
+            var path = $"{_projectRoot}\\{id}.json";
 
             //if the item has been previously persisted
             if (File.Exists(path))

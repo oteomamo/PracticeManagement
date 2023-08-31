@@ -1,4 +1,6 @@
-﻿using PracticeManagement.Library.Models;
+﻿using Newtonsoft.Json;
+using PracticeManagement.Library.Models;
+using PracticeManagement.Library.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +19,18 @@ namespace PracticeManagement.Library.Services
         {
             get
             {
-                return projects;
+                var response = new WebRequestHandler()
+                    .Get("/Project").Result;
+                var projects = JsonConvert.
+                    DeserializeObject<List<Project>>(response);
+                return projects ?? new List<Project>();
             }
         }
 
         public IEnumerable<Project> Search(string query)
         {
             return Projects
-                .Where(c => c.ShortName.ToUpper()
+                .Where(c => c.LongName.ToUpper()
                     .Contains(query.ToUpper()));
         }
 
@@ -42,12 +48,11 @@ namespace PracticeManagement.Library.Services
 
         private ProjectService()
         {
-            projects = new List<Project>
-            {       
-                new Project{Id = 11, LongName = "Project A", ShortName = "P-A", OpenDate = DateTime.Parse("2022-02-22"), ClosedDate = DateTime.Parse("2023-02-22"), IsActive = true, ClientId = 2},
-                new Project{Id = 12, LongName = "Project B", ShortName = "P-B", OpenDate = DateTime.Parse("2022-02-22"), ClosedDate = DateTime.Parse("2023-02-22"), IsActive = true, ClientId = 2},
-                new Project{Id = 13, LongName = "Project C", ShortName = "P-A", OpenDate = DateTime.Parse("2022-02-22"), ClosedDate = DateTime.Parse("2023-02-22"), IsActive = true, ClientId = 3}
-            };
+            var response = new WebRequestHandler()
+                .Get("/Project").Result;
+            projects = JsonConvert
+                .DeserializeObject<List<Project>>(response)??
+                new List<Project>();
         }
 
 
@@ -66,39 +71,37 @@ namespace PracticeManagement.Library.Services
 
         public void Delete(int id)
         {
-            var projectToDelete = Projects.FirstOrDefault(c => c.Id == id);
-            if (projectToDelete != null)
+            var response = new WebRequestHandler()
+                .Delete($"/Project/Delete/{id}").Result;
+            if (response == "SUCCESS")
             {
-                Projects.Remove(projectToDelete);
+                var projectToDelete = projects.FirstOrDefault(c => c.Id == id);
+                if (projectToDelete != null)
+                {
+                    projects.Remove(projectToDelete);
+                }
             }
         }
-
-        /*        public void Read()
-                {
-                    clients.ForEach(Console.WriteLine);
-                }*/
 
 
         public void AddOrUpdate(Project p)
         {
-            if (p.Id == 0)
+            var response = new WebRequestHandler()
+                .Post("/Project", p).Result;
+            var myUpdatedProject = JsonConvert.DeserializeObject<Project>(response);
+            if (myUpdatedProject != null)
             {
-                p.Id = LastId + 1;
-                projects.Add(p);
-            }
-            else
-            {
-                int existingProject = Projects.FindIndex(project => project.Id == p.Id);
-                if (existingProject >= 0)
+                var existingProject = projects.FirstOrDefault(c => c.Id == myUpdatedProject.Id);
+                if (existingProject == null)
                 {
-                    Projects[existingProject].Id = p.Id;
-                    Projects[existingProject].LongName = p.LongName;
-                    Projects[existingProject].ShortName = p.ShortName;
-                    Projects[existingProject].IsActive = p.IsActive;
-                    Projects[existingProject].OpenDate = p.OpenDate;
-                    Projects[existingProject].ClosedDate = p.ClosedDate;
-                    Projects[existingProject].ClientId = p.ClientId;
+                    projects.Add(myUpdatedProject);
                 }
+                else
+                {
+                    var index = Projects.IndexOf(existingProject);
+                    projects.RemoveAt(index);
+                    projects.Insert(index, myUpdatedProject);
+                }   
             }
         }
 
