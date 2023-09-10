@@ -16,6 +16,8 @@ namespace PracticeManagement.Library.DTO
         public float Rate { get; set; }
         public TimeSpan TimeSpent { get; set; }
         public double TotalAmount { get; set; }
+        public string Name { get; set; }
+
 
         public BillDTO()
         {
@@ -23,6 +25,7 @@ namespace PracticeManagement.Library.DTO
             ClientId = 0;
             DueDate = DateTime.Now;
             ProjectId = 0;
+            Name = string.Empty;
             Rate = 0;
             TimeSpent = TimeSpan.Zero;
             TotalAmount = 0;
@@ -35,13 +38,15 @@ namespace PracticeManagement.Library.DTO
             this.DueDate = b.DueDate;
             this.ProjectId = b.ProjectId;
             this.Rate = b.Rate;
+            Name = b.Name;
             this.TimeSpent = b.TimeSpent;
             this.TotalAmount = b.TotalAmount;
         }
 
         public override string ToString()
         {
-            return $"ID : {Id}  --  ClientID : {ClientId} -- Total Amount Due: {TotalAmount}  -  Due Date:  {DueDate}  - ProjectId:  {ProjectId}";
+            return string.Format(" ID: {0,-3}  --  ClientID: {1,-3} -- Total Amount Due: {2, -7}  -  Due Date: {3:MM/dd/yyyy}  -  ProjectId: {4,-3}", Id, ClientId, TotalAmount, DueDate, ProjectId);
         }
+
     }
 }

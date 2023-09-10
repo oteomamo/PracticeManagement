@@ -1,4 +1,5 @@
-﻿using PracticeManagement.Library.Models;
+﻿using PracticeManagement.Library.DTO;
+using PracticeManagement.Library.Models;
 using PracticeManagement.Library.Services;
 using PracticeManagement.MAUI.Views;
 using System;
@@ -17,7 +18,7 @@ namespace PracticeManagement.MAUI.ViewModels
     public class BillViewModel : INotifyPropertyChanged
     {
 
-        public Bill Model { get; set; }
+        public BillDTO Model { get; set; }
 
         public ObservableCollection<BillViewModel> Bills
         {
@@ -83,7 +84,7 @@ namespace PracticeManagement.MAUI.ViewModels
 
         public BillViewModel()
         {
-            Model = new Bill();
+            Model = new BillDTO();
             SetupCommands();
         }
 
@@ -91,7 +92,7 @@ namespace PracticeManagement.MAUI.ViewModels
         {
             if (billId == 0)
             {
-                Model = new Bill { ClientId = clientId, ProjectId = projectId };
+                Model = new BillDTO { ClientId = clientId, ProjectId = projectId };
             }
             else
             {
@@ -102,7 +103,7 @@ namespace PracticeManagement.MAUI.ViewModels
 
 
 
-        public BillViewModel(Bill model)
+        public BillViewModel(BillDTO model)
         {
             Model = model;
             SetupCommands();

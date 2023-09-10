@@ -49,7 +49,8 @@ namespace PracticeManagement.Library.DTO
 
         public override string ToString()
         {
-            return $"{Id}. {LongName} - ({ShortName})  OpenDate: {OpenDate}  ClosedDate: {ClosedDate} IsActive: {IsActive}  ClientID: {ClientId}";
+            return string.Format(" Id: {0,-3}\tLongName: {1,-20}\tShortName: {2,-4}\tOpenDate: {3,-10:MM/dd/yyyy}\tClosedDate: {4,-10:MM/dd/yyyy}\tIsActive: {5,-5}\tClientId: {6,-2}", Id, LongName, ShortName, OpenDate, ClosedDate, IsActive, ClientId);
         }
+
     }
 }

@@ -46,37 +46,28 @@ namespace PracticeManagement.API.Database
 
         public Client AddOrUpdate(Client c)
         {
-            //set up a new Id if one doesn't already exist
             if (c.Id <= 0)
             {
                 c.Id = LastClientId + 1;
             }
-
             var path = $"{_clientRoot}\\{c.Id}.json";
 
             try
             {
-                //if the item has been previously persisted
                 if (File.Exists(path))
                 {
-                    //blow it up
                     File.Delete(path);
                 }
-
-                // Ensure the directory exists
                 var directoryPath = Path.GetDirectoryName(path);
                 Directory.CreateDirectory(directoryPath);
 
-                //write the file
                 File.WriteAllText(path, JsonConvert.SerializeObject(c));
             }
             catch (Exception e)
             {
-                // Log or handle the error as needed
                 Debug.WriteLine($"Error updating client: {e.Message}");
             }
 
-            //return the item, which now has an id
             return c;
         }
 
@@ -110,11 +101,8 @@ namespace PracticeManagement.API.Database
         public bool Delete(string id)
         {
             var path = $"{_clientRoot}\\{id}.json";
-
-            //if the item has been previously persisted
             if (File.Exists(path))
             {
-                //blow it up
                 File.Delete(path);
             }
             return true;
@@ -179,8 +167,6 @@ namespace PracticeManagement.API.Database
         public bool DeleteProject(string id)
         {
             var path = $"{_projectRoot}\\{id}.json";
-
-            //if the item has been previously persisted
             if (File.Exists(path))
             {
                 //blow it up
@@ -188,75 +174,72 @@ namespace PracticeManagement.API.Database
             }
             return true;
         }
-    }
 
-    /*    ++++++++++++++    Bill Section     +++++++++++++    */
 
-    public List<Bill> Bills
-    {
-        get
+        /*    ++++++++++++++    Bill Section     +++++++++++++    */
+
+        public List<Bill> Bills
         {
-            var _bills = new List<Bill>();
-            if (Directory.Exists(_billRoot))
+            get
             {
-                var root = new DirectoryInfo(_billRoot);
-                foreach (var todoFile in root.GetFiles())
+                var _bills = new List<Bill>();
+                if (Directory.Exists(_billRoot))
                 {
-                    var todo = JsonConvert.DeserializeObject<Bill>(File.ReadAllText(todoFile.FullName));
-                    if (todo != null)
+                    var root = new DirectoryInfo(_billRoot);
+                    foreach (var todoFile in root.GetFiles())
                     {
-                        _bills.Add(todo);
+                        var todo = JsonConvert.DeserializeObject<Bill>(File.ReadAllText(todoFile.FullName));
+                        if (todo != null)
+                        {
+                            _bills.Add(todo);
+                        }
                     }
                 }
+                else
+                {
+                    Debug.WriteLine($"Directory {_billRoot} does not exist.");
+                }
+
+                return _bills;
             }
-            else
+        }
+
+        public Bill AddOrUpdate(Bill p)
+        {
+            if (p.Id <= 0)
             {
-                Debug.WriteLine($"Directory {_billRoot} does not exist.");
+                p.Id = LastBillId + 1;
             }
 
-            return _bills;
+            var path = $"{_billRoot}\\{p.Id}.json";
+
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+                var directoryPath = Path.GetDirectoryName(path);
+                Directory.CreateDirectory(directoryPath);
+
+                File.WriteAllText(path, JsonConvert.SerializeObject(p));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error updating bills: {e.Message}");
+            }
+            return p;
         }
-    }
 
-    public Bill AddOrUpdate(Bill p)
-    {
-        if (p.Id <= 0)
+        public bool DeleteBill(string id)
         {
-            p.Id = LastBillId + 1;
-        }
+            var path = $"{_billRoot}\\{id}.json";
 
-        var path = $"{_billRoot}\\{p.Id}.json";
-
-        try
-        {
             if (File.Exists(path))
             {
                 File.Delete(path);
             }
-            var directoryPath = Path.GetDirectoryName(path);
-            Directory.CreateDirectory(directoryPath);
-
-            File.WriteAllText(path, JsonConvert.SerializeObject(p));
+            return true;
         }
-        catch (Exception e)
-        {
-            Debug.WriteLine($"Error updating project: {e.Message}");
-        }
-        return p;
     }
-
-    public bool DeleteBill(string id)
-    {
-        var path = $"{_billRoot}\\{id}.json";
-
-        //if the item has been previously persisted
-        if (File.Exists(path))
-        {
-            //blow it up
-            File.Delete(path);
-        }
-        return true;
-    }
-}
-
 }

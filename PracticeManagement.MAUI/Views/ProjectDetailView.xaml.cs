@@ -1,3 +1,4 @@
+using PracticeManagement.Library.DTO;
 using PracticeManagement.Library.Models;
 using PracticeManagement.Library.Services;
 using PracticeManagement.MAUI.ViewModels;
@@ -47,7 +48,7 @@ public partial class ProjectDetailView : ContentPage
         var projectViewModel = BindingContext as ProjectViewModel;
         if (projectViewModel != null)
         {
-            var newBill = new Bill
+            var newBill = new BillDTO
             {
                 ProjectId = projectViewModel.Model.Id,
                 ClientId = projectViewModel.Model.ClientId,

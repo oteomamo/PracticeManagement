@@ -14,6 +14,7 @@ namespace PracticeManagement.Library.Models
     public class Bill : INotifyPropertyChanged
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public int ClientId { get; set; }
         public DateTime DueDate { get; set; }
         public int ProjectId { get; set; }
@@ -21,6 +22,7 @@ namespace PracticeManagement.Library.Models
         private float rate;
 
         private TimeSpan timeSpent;
+
         public float Rate
         {
             get { return rate; }
@@ -58,7 +60,7 @@ namespace PracticeManagement.Library.Models
 
         public override string ToString()
         {
-            return $"ID : {Id}  --  ClientID : {ClientId} -- Total Amount Due: {TotalAmount}  -  Due Date:  {DueDate}  - ProjectId:  {ProjectId}";
+            return string.Format(" ID: {0,-3}  --  ClientID: {1,-3} -- Total Amount Due: {2, -7}  -  Due Date: {3:MM/dd/yyyy}  -  ProjectId: {4,-3}", Id, ClientId, TotalAmount, DueDate, ProjectId);
         }
         public Bill()
         {
@@ -66,8 +68,10 @@ namespace PracticeManagement.Library.Models
             ClientId = 0;
             ProjectId = 0;
             Rate = 0;
+            Name = string.Empty;
             TimeSpent = TimeSpan.Zero;
             DueDate = new DateTime();
+
         }
 
         public Bill(BillDTO dto)
@@ -76,6 +80,7 @@ namespace PracticeManagement.Library.Models
             this.ClientId = dto.ClientId;
             this.ProjectId = dto.ProjectId;
             this.Rate = dto.Rate;
+            Name = string.Empty;
             this.TimeSpent = dto.TimeSpent;
             this.DueDate = dto.DueDate;
         }

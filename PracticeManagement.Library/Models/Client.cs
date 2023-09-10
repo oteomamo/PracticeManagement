@@ -48,7 +48,8 @@ namespace PracticeManagement.Library.Models
         }
         public override string ToString()
         {
-            return $"{Id}.{Name}.{OpenDate}.{ClosedDate}.{IsActive}.{Notes}";
+            return string.Format(" Id: {0,-3}\tName: {1,-20}\tOpenDate: {2,-10:MM/dd/yyyy}\tClosedDate: {3,-10:MM/dd/yyyy}\tIsActive: {4,-5}\tNotes: {5,-30}", Id, Name, OpenDate, ClosedDate, IsActive, Notes);
         }
+
     }
 }

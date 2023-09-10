@@ -1,4 +1,5 @@
 using Microsoft.Maui.Dispatching;
+using PracticeManagement.Library.DTO;
 using PracticeManagement.Library.Models;
 using PracticeManagement.Library.Services;
 using System;
@@ -16,7 +17,7 @@ namespace PracticeManagement.MAUI.ViewModels
     public class TimerViewModel : INotifyPropertyChanged
     {
         //public Project Project { get; set; }
-        public Bill Bill { get; set; }
+        public BillDTO Bill { get; set; }
 
         public TimeSpan TimeX { get; private set; }
 
@@ -27,7 +28,7 @@ namespace PracticeManagement.MAUI.ViewModels
         //        return ProjectService.Current.Projects;
         //    }
         //}
-        public List<Bill> Bills  // and here
+        public List<BillDTO> Bills  // and here
         {
             get
             {
@@ -104,7 +105,7 @@ namespace PracticeManagement.MAUI.ViewModels
         public TimerViewModel(int billId, Window parentWindow)
         {
             //Project = ProjectService.Current.Get(projectId) ?? new Project();
-            Bill = BillService.Current.Get(billId) ?? new Bill();  
+            Bill = BillService.Current.Get(billId) ?? new BillDTO();  
 
             stopwatch = new Stopwatch();
             timer = Application.Current.Dispatcher.CreateTimer();

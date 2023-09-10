@@ -15,7 +15,7 @@ namespace PracticeManagement.MAUI.ViewModels {
 
         public ClientDTO Client { get; set; }
 
-        public Bill SelectedBill { get; set; }
+        public BillDTO SelectedBill { get; set; }
         public ICommand SearchCommand { get; private set; }
         public int Query { get; set; }
         public void ExecuteSearchCommand()
