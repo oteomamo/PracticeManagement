@@ -1,13 +1,13 @@
 # Practice Management Project
 
-##Description
+## Description
 
 The Practice Management Project is a PracticePanther knockoff application developed 
 using the C# programming language and the .Net framework. This system is designed to facilitate seamless 
 operations and interactions between various entities such as Clients, Projects, Bills, Times, and Employees, 
 unified under a user-friendly interface.
 
-##Features
+## Features
 
 Upon initialization, the system prompts the user to configure their working shift timings if identified as an 
 employee, granting them access to the expansive client database thereafter. The primary interface
@@ -28,7 +28,7 @@ At the core of the system is a robust API service hosted locally, providing smoo
 database. This backend is designed to efficiently manage and store data utilizing JSON files, ensuring quick retrieval 
 and update operations.
 
-##Run and Test the Database
+## Run and Test the Database
 
 To run the program, install Visual Studio (VS) Community as the primary development environment. Before initiating the project, 
 the ensure the following packages are installed.
