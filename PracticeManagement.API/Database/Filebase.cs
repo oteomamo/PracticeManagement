@@ -12,6 +12,7 @@ namespace PracticeManagement.API.Database
         private string _root;
         private string _clientRoot;
         private string _projectRoot;
+        private string _billRoot;
         private static Filebase? _instance;
 
 
@@ -33,11 +34,15 @@ namespace PracticeManagement.API.Database
             _root = @"C:\temp";
             _clientRoot = $"{_root}\\Clients";
             _projectRoot = $"{_root}\\Projects";
+            _billRoot = $"{_root}\\Bills";
             //TODO: add support for employees, times, bills
         }
         private int LastClientId => Clients.Any() ? Clients.Select(c => c.Id).Max() : 0;
         private int LastProjectId => Projects.Any() ? Projects.Select(c => c.Id).Max() : 0;
+        private int LastBillId => Bills.Any() ? Bills.Select(c => c.Id).Max() : 0;
 
+
+        /*    ++++++++++++++    Client Section     +++++++++++++    */
 
         public Client AddOrUpdate(Client c)
         {
@@ -184,5 +189,74 @@ namespace PracticeManagement.API.Database
             return true;
         }
     }
+
+    /*    ++++++++++++++    Bill Section     +++++++++++++    */
+
+    public List<Bill> Bills
+    {
+        get
+        {
+            var _bills = new List<Bill>();
+            if (Directory.Exists(_billRoot))
+            {
+                var root = new DirectoryInfo(_billRoot);
+                foreach (var todoFile in root.GetFiles())
+                {
+                    var todo = JsonConvert.DeserializeObject<Bill>(File.ReadAllText(todoFile.FullName));
+                    if (todo != null)
+                    {
+                        _bills.Add(todo);
+                    }
+                }
+            }
+            else
+            {
+                Debug.WriteLine($"Directory {_billRoot} does not exist.");
+            }
+
+            return _bills;
+        }
+    }
+
+    public Bill AddOrUpdate(Bill p)
+    {
+        if (p.Id <= 0)
+        {
+            p.Id = LastBillId + 1;
+        }
+
+        var path = $"{_billRoot}\\{p.Id}.json";
+
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            var directoryPath = Path.GetDirectoryName(path);
+            Directory.CreateDirectory(directoryPath);
+
+            File.WriteAllText(path, JsonConvert.SerializeObject(p));
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine($"Error updating project: {e.Message}");
+        }
+        return p;
+    }
+
+    public bool DeleteBill(string id)
+    {
+        var path = $"{_billRoot}\\{id}.json";
+
+        //if the item has been previously persisted
+        if (File.Exists(path))
+        {
+            //blow it up
+            File.Delete(path);
+        }
+        return true;
+    }
+}
 
 }
