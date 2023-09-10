@@ -13,13 +13,13 @@ namespace PracticeManagement.Library.Utilities
         private string host = "localhost";
         private string port = "5151";
         private HttpClient Client { get; }
-        private HttpProject Project { get; }
-        private HttpBill Bill { get; }
+/*        private HttpProject Project { get; }
+        private HttpBill Bill { get; }*/
         public WebRequestHandler()
         {
             Client = new HttpClient();
-            Project = new HttpProject();
-            Bill = new HttpBill();
+/*            Project = new HttpProject();
+            Bill = new HttpBill();*/
         }
         public async Task<string> Get(string url)
         {
@@ -101,7 +101,7 @@ namespace PracticeManagement.Library.Utilities
 
         }
          
-        /*    +++++++++++++++ Project Section    +++++++++++++    */
+        /*    +++++++++++++++ Project Section    +++++++++++++    *//*
         public async Task<string> GetProject(string url)
         {
             var fullUrl = $"http://{host}:{port}{url}";
@@ -182,7 +182,7 @@ namespace PracticeManagement.Library.Utilities
 
         }
 
-        /*    +++++++++++++++   Bill Section    +++++++++++++    */
+        *//*    +++++++++++++++   Bill Section    +++++++++++++    *//*
 
         public async Task<string> GetBill(string url)
         {
@@ -262,7 +262,7 @@ namespace PracticeManagement.Library.Utilities
                 }
             }
 
-        }
+        }*/
 
         
 
