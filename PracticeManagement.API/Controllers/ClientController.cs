@@ -26,15 +26,9 @@ namespace PracticeManagement.API.Controllers
         [HttpGet]
         public IEnumerable<ClientDTO> Get()
         {
-            //return FakeDatabase.Clients;  ==> Used with Client 
             return new ClientEC().Search();
         }
 
-        /*[HttpGet("GetClients/{id}")]
-        public Client GetId(int id)
-        {
-            return FakeDatabase.Clients.FirstOrDefault(c  => c.Id == id) ?? new Client();
-        }*/
 
         [HttpGet("{id}")]
         public ClientDTO? GetId(int id)
@@ -42,17 +36,6 @@ namespace PracticeManagement.API.Controllers
             return new ClientEC().Get(id);
         }
 
-        /*[HttpDelete("Delete/{id}")]
-        public Client? Delete(int id)
-        {
-
-            var clientToDelete = FakeDatabase.Clients.FirstOrDefault(c => c.Id == id) ?? new Client();
-            if (clientToDelete != null)
-            {
-                FakeDatabase.Clients.Remove(clientToDelete);
-            }
-            return clientToDelete;
-        }*/
 
         [HttpDelete("Delete/{id}")]
         public ClientDTO? Delete(int id)
@@ -66,12 +49,6 @@ namespace PracticeManagement.API.Controllers
             return new ClientEC().AddOrUpdate(client);
         }
 
-
-        /*[HttpPost]
-        public IEnumerable<Client> Search([FromBody] QueryMessage query)
-        {
-            return FakeDatabase.Clients.Where(c => c.Name.ToUpper().Contains(query.Query.ToUpper()));
-        }*/
 
         [HttpPost("Search")]
         public IEnumerable<ClientDTO> Search([FromBody] QueryMessage query)

@@ -19,6 +19,8 @@ namespace PracticeManagement.Library.DTO
         public int ClientId { get; set; }
 
         public List<Bill>? Bills { get; set; }
+
+
         public ProjectDTO()
         {
             Id = 0;
@@ -27,6 +29,7 @@ namespace PracticeManagement.Library.DTO
             IsActive = false;
             LongName = string.Empty;
             ShortName = string.Empty;
+            ClientId = 0;
             Bills = new List<Bill>();
 
         }
@@ -37,8 +40,9 @@ namespace PracticeManagement.Library.DTO
             this.OpenDate = p.OpenDate;
             this.ClosedDate = p.ClosedDate;
             this.IsActive = p.IsActive;
-            this.LongName = p.LongName;
-            this.ShortName = p.ShortName;
+            LongName = p.LongName;
+            ShortName = p.ShortName;
+            this.ClientId = p.ClientId;
             Bills = new List<Bill>();
 
         }

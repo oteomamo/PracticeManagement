@@ -1,4 +1,4 @@
-﻿// COP 4870 Assignment 1 Oteo Mamo
+﻿// Oteo Mamo
 // Project Class
 
 using PracticeManagement.Library.DTO;
@@ -38,6 +38,7 @@ namespace PracticeManagement.Library.Models
             ShortName = string.Empty;
             IsActive = false;
             Bills = new List<Bill>();
+            ClientId = 0;
         }
 
 

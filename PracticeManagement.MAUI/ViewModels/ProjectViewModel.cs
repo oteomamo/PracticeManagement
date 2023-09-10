@@ -37,11 +37,11 @@ namespace PracticeManagement.MAUI.ViewModels
             : new ObservableCollection<BillViewModel>(BillService.Current.Bills.Where(b => b.ProjectId == Model.Id).Select(bl => new BillViewModel(bl)));
         
 
-        public ICommand BillCommand { get; private set; }
+/*        public ICommand BillCommand { get; private set; }*/
         public ICommand DeleteCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
         public ICommand AddCommand { get; private set; }
-        public ICommand TimerCommand { get; private set; }
+/*        public ICommand TimerCommand { get; private set; }*/
 
         public string Display
         {
@@ -68,7 +68,7 @@ namespace PracticeManagement.MAUI.ViewModels
             Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.ClientId}&projectId={Model.Id}");
         }
 
-        private void ExecuteTimer()
+/*        private void ExecuteTimer()
         {
             var window = new Window()
             {
@@ -80,12 +80,12 @@ namespace PracticeManagement.MAUI.ViewModels
             var view = new TimerView(Model.Id, window);
             window.Page = view;
             Application.Current.OpenWindow(window);
-        }
+        }*/
 
-        private void ExecuteBill()
+/*        private void ExecuteBill()
         {
             Shell.Current.GoToAsync($"//BillDetailView");
-        }
+        }*/
 
 
         public void RefreshProjects()
@@ -100,8 +100,8 @@ namespace PracticeManagement.MAUI.ViewModels
             EditCommand = new Command(
                 (c) => ExecuteEdit((c as ProjectViewModel).Model.Id));
             AddCommand = new Command(ExecuteAdd);
-            TimerCommand = new Command(ExecuteTimer);
-            BillCommand = new Command(ExecuteBill);
+/*            TimerCommand = new Command(ExecuteTimer);
+            BillCommand = new Command(ExecuteBill);*/
         }
 
         public void AddOrUpdate()
@@ -132,19 +132,6 @@ namespace PracticeManagement.MAUI.ViewModels
             Model = model;
             SetupCommands();
         }
-
-/*        public void LoadBills()
-        {
-            var projectBills = BillService.Current.Search(Model.Id);
-            int timeSpentInMinutes = (int)Model.TimeSpent.TotalMinutes;
-            float totalAmount = timeSpentInMinutes * 10;
-            foreach (var bill in projectBills)
-            {
-                bill.TotalAmount = totalAmount;
-            }
-            //Bills = new ObservableCollection<Bill>(projectBills);
-        }*/
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;

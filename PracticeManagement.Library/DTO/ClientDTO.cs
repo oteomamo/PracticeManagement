@@ -20,6 +20,8 @@ namespace PracticeManagement.Library.DTO
         public List<Project>? Projects { get; set; }
 
         public List<Bill>? Bills { get; set; }
+
+
         public ClientDTO()
         {
             Id = 0;
