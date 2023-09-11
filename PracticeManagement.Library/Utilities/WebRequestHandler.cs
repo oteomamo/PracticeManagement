@@ -12,12 +12,12 @@ namespace PracticeManagement.Library.Utilities
     {
         private string host = "localhost";
         private string port = "5151";
-        private HttpClient Client { get; }
-/*        private HttpProject Project { get; }
-        private HttpBill Bill { get; }*/
+        private HttpClient webClient { get; }
+        //private HttpProject Project { get; }
+        //private HttpBill Bill { get; }
         public WebRequestHandler()
         {
-            Client = new HttpClient();
+            webClient = new HttpClient();
 /*            Project = new HttpProject();
             Bill = new HttpBill();*/
         }

@@ -21,10 +21,6 @@ namespace PracticeManagement.Library.Services
         {
             get
             {
-                var response = new WebRequestHandler()
-                    .Get("/Bill").Result;
-                var bills = JsonConvert.
-                    DeserializeObject<List<BillDTO>>(response);
                 return bills ?? new List<BillDTO>();
             }
         }

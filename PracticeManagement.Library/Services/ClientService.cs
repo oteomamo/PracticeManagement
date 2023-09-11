@@ -21,12 +21,12 @@ namespace PracticeManagement.Library.Services
         {
             get
             {
-                var response = new WebRequestHandler()
+/*                var response = new WebRequestHandler()
                     .Get("/Client").Result;
                 var clients = JsonConvert
                     .DeserializeObject<List<ClientDTO>>(response);
+                return clients ?? new List<ClientDTO>();*/
                 return clients ?? new List<ClientDTO>();
-                //return clients;
             }
         }
 

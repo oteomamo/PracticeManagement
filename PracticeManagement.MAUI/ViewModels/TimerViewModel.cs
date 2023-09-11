@@ -16,18 +16,18 @@ namespace PracticeManagement.MAUI.ViewModels
 {
     public class TimerViewModel : INotifyPropertyChanged
     {
-        //public Project Project { get; set; }
+        public ProjectDTO Project { get; set; }
         public BillDTO Bill { get; set; }
 
         public TimeSpan TimeX { get; private set; }
 
-        //public List<Project> Projects
-        //{
-        //    get
-        //    {
-        //        return ProjectService.Current.Projects;
-        //    }
-        //}
+        public List<ProjectDTO> Projects
+        {
+            get
+            {
+                return ProjectService.Current.Projects;
+            }
+        }
         public List<BillDTO> Bills  // and here
         {
             get
@@ -47,13 +47,13 @@ namespace PracticeManagement.MAUI.ViewModels
                 return str;
             }
         }
-/*        public string ProjectDisplay
+        public string ProjectDisplay
         {
             get
             {
                 return Project.ShortName;
             }
-        }*/
+        }
 
         private Window parentWindow;
 
@@ -70,15 +70,6 @@ namespace PracticeManagement.MAUI.ViewModels
             timer.Start();
         }
 
-        //public void ExecuteStop()
-        //{
-        //    stopwatch.Stop();
-        //    TimeX = stopwatch.Elapsed;
-        //    Project.TimeSpent += TimeX;
-        //    NotifyPropertyChanged(nameof(TimeX));
-        //    NotifyPropertyChanged(nameof(Project));
-        //    ProjectService.Current.AddOrUpdate(Project);
-        //}
         public void ExecuteStop()
         {
             stopwatch.Stop();

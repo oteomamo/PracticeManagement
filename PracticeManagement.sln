@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticeManagement.MAUI", "PracticeManagement.MAUI\PracticeManagement.MAUI.csproj", "{D3D6DC61-D8CD-452D-AD02-BD7B8B010C09}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticeManagement.API", "PracticeManagement.API\PracticeManagement.API.csproj", "{124F9409-CCA0-4D1E-8EE3-8FE2E8A0116F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A5A5A09F-B614-46D4-9D01-F86E0843C8A8} = {A5A5A09F-B614-46D4-9D01-F86E0843C8A8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

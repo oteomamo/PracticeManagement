@@ -16,10 +16,4 @@
     <ProjectReference Include="..\PracticeManagement.Library\PracticeManagement.Library.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="PracticeManagement.Library">
-      <HintPath>..\..\PracticeManagement\PracticeManagement.Library\bin\Debug\net7.0\PracticeManagement.Library.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

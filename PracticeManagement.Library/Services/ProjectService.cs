@@ -20,10 +20,10 @@ namespace PracticeManagement.Library.Services
         {
             get
             {
-                var response = new WebRequestHandler()
-                    .Get("/Project").Result;
-                var projects = JsonConvert.
-                    DeserializeObject<List<ProjectDTO>>(response);
+                //var response = new WebRequestHandler()
+                //    .Get("/Project").Result;
+                //var projects = JsonConvert.
+                //    DeserializeObject<List<ProjectDTO>>(response);
                 return projects ?? new List<ProjectDTO>();
             }
         }
