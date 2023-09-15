@@ -35,15 +35,21 @@ the ensure the following packages are installed.
 
 ASP.NET and Web Development
 
+
 Node.js Development
+
 
 Mobile Development for .NET
 
+
 .NET Desktop Development
+
 
 Universal Windows Platform Development
 
+
 Data Storage and Processing
+
 
 Furthermore, configure the server settings to align the new host and port in the WebRequestHandler.cs file.
 
